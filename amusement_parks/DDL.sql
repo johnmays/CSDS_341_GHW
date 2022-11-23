@@ -50,6 +50,25 @@ create table ridezone
 	foreign key (zonename) references zone (zonename)
 	)
 
+create table attraction
+	(
+	id varchar(3) not null, 
+	parkid varchar(3) not null,
+	name varchar(128) not null, 
+	description varchar (128) not null, 
+	primary key (id),
+	foreign key (parkid) references park (id)
+	)
+
+create table riderating
+	(
+	rideid varchar(3) not null,
+	rating in ('baby', 'intermediate', 'concussion')
+	primary key (rideid)
+	foreign key (rideid) references ride (id)
+	) 
+
+
 -- Misc. Tables
 create table state_abbreviations
 	(
