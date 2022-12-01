@@ -24,7 +24,7 @@ create table location
 
 create table zone
 	(
-	parkid		int IDENTITY(1, 1) 	not null,
+	parkid		int 			not null,
 	zonename	varchar(128)	not null,
 	primary key (parkid, zonename),
 	foreign key (parkid) references park (id)
