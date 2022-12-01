@@ -1,11 +1,12 @@
 -- Create Park - Tyler
-CREATE PROCEDURE createPark (@id varchar(3),
+CREATE PROCEDURE createPark (@id int output,
                              @name varchar(128),
                              @description varchar(512),
                              @status varchar(32))
   AS
     BEGIN
-      INSERT  into park(id, name, description, status) values (@id, @name, @description, @status);
+      INSERT  into park(name, description, status) values (@name, @description, @status);
+	  SELECT @id = SCOPE_IDENTITY();
     END
 
 -- Update Park - Jack
