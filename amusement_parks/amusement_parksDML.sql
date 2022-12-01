@@ -10,7 +10,7 @@ CREATE PROCEDURE updatePark (@id varchar(3),
       UPDATE park
       SET name = IsNull(@name, name),
           description = IsNull(@description, description),
-          status = IsNull(@status, status),
+          status = IsNull(@status, status)
       WHERE id = @id
     END
 
@@ -28,7 +28,7 @@ CREATE PROCEDURE updateRide (@rideid varchar(3),
       UPDATE ride
       SET name = IsNull(@name, name),
           maxspeed = IsNull(@maxspeed, maxspeed),
-          description = IsNull(@description, description),
+          description = IsNull(@description, description)
       WHERE rideid = @rideid
     END
 
