@@ -88,12 +88,3 @@ create table attractionzone
 		primary key (attractionid),
 		foreign key (attractionid) references attraction (id)
 	)
-
-
--- Misc. Tables
-create table state_abbreviations
-	(
-		state			varchar(128)	not null,
-		abbreviation	varchar(2) 		not null,
-		primary key (abbreviation)
-	)
