@@ -1,4 +1,12 @@
 -- Create Park - Tyler
+CREATE PROCEDURE createPark (@id varchar(3),
+                             @name varchar(128),
+                             @description varchar(512),
+                             @status varchar(32))
+  AS
+    BEGIN
+      INSERT  into park(id, name, description, status) values (@id, @name, @description, @status);
+    END
 
 -- Update Park - Jack
 CREATE PROCEDURE updatePark (@id varchar(3),
@@ -15,7 +23,12 @@ CREATE PROCEDURE updatePark (@id varchar(3),
     END
 
 -- Create zone - Tyler
-
+CREATE PROCEDURE createZone (@parkid varchar(3),
+                             @zonename varchar(128))
+  AS
+    BEGIN
+      INSERT  into zone(parkid, zonename) values (@parkid, @zonename);
+    END
 -- Create ride - Phineas
 
 -- Update ride - Jack
