@@ -1,11 +1,12 @@
 -- Create Park - Tyler
-CREATE PROCEDURE createPark (@id varchar(3),
+CREATE PROCEDURE createPark (@id int output,
                              @name varchar(128),
                              @description varchar(512),
                              @status varchar(32))
   AS
     BEGIN
-      INSERT  into park(id, name, description, status) values (@id, @name, @description, @status);
+      INSERT  into park(name, description, status) values (@name, @description, @status);
+	  SELECT @id = SCOPE_IDENTITY();
     END
 
 -- Update Park - Jack
@@ -18,7 +19,7 @@ CREATE PROCEDURE updatePark (@id varchar(3),
       UPDATE park
       SET name = IsNull(@name, name),
           description = IsNull(@description, description),
-          status = IsNull(@status, status),
+          status = IsNull(@status, status)
       WHERE id = @id
     END
 
@@ -41,7 +42,7 @@ CREATE PROCEDURE updateRide (@rideid varchar(3),
       UPDATE ride
       SET name = IsNull(@name, name),
           maxspeed = IsNull(@maxspeed, maxspeed),
-          description = IsNull(@description, description),
+          description = IsNull(@description, description)
       WHERE rideid = @rideid
     END
 
