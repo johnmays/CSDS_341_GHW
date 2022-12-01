@@ -46,7 +46,7 @@ create table ridezone
 	rideid varchar(3) not null,
 	zonename varchar(128) not null,
 	primary key (rideid),
-	foreign key (rideid) referneces ride (id),
+	foreign key (rideid) references ride (id),
 	foreign key (zonename) references zone (zonename)
 	)
 
