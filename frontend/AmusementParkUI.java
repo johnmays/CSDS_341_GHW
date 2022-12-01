@@ -163,15 +163,15 @@ public class AmusementParkUI {
 
     // Helper to get an integer from input -- tries again if no valid result
     private int scanInt(Scanner scanner, String message) {
-        int value;
+        String value;
         System.out.println(message);
+        value = scanner.nextLine();
         try {
-            value = scanner.nextInt();
-        } catch(InputMismatchException e) {
+            return Integer.valueOf(value);
+        } catch(NumberFormatException e) {
             System.out.println("Invalid input, integer required.");
-            value = scanInt(scanner, message);
+            return scanInt(scanner, message);
         }
-        return value;
     }
 
     public void createZone(Scanner scanner) {
