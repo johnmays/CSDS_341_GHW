@@ -20,18 +20,18 @@ insert into zone values ('001', 'Dystopian Cow Processing Factory');
 insert into zone values ('001', 'Havarti Castle');
 
 -- Rides:
-insert into ride values('001', 'Top Thrill Cheester', 120, "The Top Thrill Cheester is a hydraulically-launched steel roller coaster located at CheeseLand in Terra-Haute Indiana. It can accelerate from 0 to 120mph in 4 seconds.", '001');
-insert into ride values('002', 'Millenium Churn', 93, "The Millenium Churn is a steel roller coaster located at CheeseLand in Terra-Haute Indiana. It was the world's first giga coaster.", '001');
-insert into ride values('003', 'The Baby Swisster', 93, "The Baby Swisster is a kid friendly rollercoaster.", '001');
+insert into ride values('001', 'Top Thrill Cheester', 120, "The Top Thrill Cheester is a hydraulically-launched steel roller coaster located at CheeseLand in Terra-Haute Indiana. It can accelerate from 0 to 120mph in 4 seconds.");
+insert into ride values('002', 'Millenium Churn', 93, "The Millenium Churn is a steel roller coaster located at CheeseLand in Terra-Haute Indiana. It was the world's first giga coaster.");
+insert into ride values('003', 'The Baby Swisster', 93, "The Baby Swisster is a kid friendly rollercoaster.");
 
 -- Ride Zones:
 insert into ridezone values('001', 'Cheddar Palace');
 insert into ridezone values('002', 'Curd Science Lab');
 
 -- Attractions
-insert into attraction values('001', '001', 'The Giant Curd', 'Its just a massive cheese curd.');
-insert into attraction values('002', '001', 'Mozerella Mosque', 'Its a mosque made of cheese.')
-insert into attraction values('003', '001', 'The Colby Crater', 'A cheesey meteor landing zone.')
+insert into attraction values('001', 'The Giant Curd', 'Its just a massive cheese curd.');
+insert into attraction values('002', 'Mozerella Mosque', 'Its a mosque made of cheese.')
+insert into attraction values('003', 'The Colby Crater', 'A cheesey meteor landing zone.')
 
 -- AttractionZone
 insert into attractionzone values('001', '001');
