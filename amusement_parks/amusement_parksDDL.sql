@@ -34,7 +34,7 @@ create table ride
 	(
 	id varchar(3) not null,
 	name varchar(128) not null,
-	maxspeed int(3) not null,
+	maxspeed int not null,
 	description varchar(512) not null,
 	parkid varchar(3) not null,
 	primary key (id),
@@ -44,10 +44,11 @@ create table ride
 create table ridezone
 	(
 	rideid varchar(3) not null,
+	parkid varchar(3) not null,
 	zonename varchar(128) not null,
 	primary key (rideid),
 	foreign key (rideid) references ride (id),
-	foreign key (zonename) references zone (zonename)
+	foreign key (parkid, zonename) references zone (parkid, zonename)
 	)
 
 create table attraction
