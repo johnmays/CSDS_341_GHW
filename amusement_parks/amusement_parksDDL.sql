@@ -5,7 +5,7 @@ drop table zone cascade
 -- Main Tables:
 create table park
 	(
-	id			varchar(3) 		not null,
+	id			int IDENTITY(1, 1) 		not null,
 	name		varchar(128) 	not null,
 	description	varchar(512)	not null,
 	status		varchar(32)		not null check (status in ('open', 'permanently closed', 'temporarily closed')),
@@ -14,7 +14,7 @@ create table park
 
 create table location
 	(
-	parkid		varchar(3) 	not null,
+	parkid		int IDENTITY(1, 1) 	not null,
 	city		varchar(128) 	not null,
 	state		varchar(128)	not null,
 	country		varchar(128)	not null,
@@ -24,7 +24,7 @@ create table location
 
 create table zone
 	(
-	parkid		varchar(3) 	not null,
+	parkid		int IDENTITY(1, 1) 	not null,
 	zonename	varchar(128)	not null,
 	primary key (parkid, zonename),
 	foreign key (parkid) references park (id)
@@ -32,7 +32,7 @@ create table zone
 
 create table ride
 	(
-	id varchar(3) not null,
+	id int IDENTITY(1, 1) not null,
 	name varchar(128) not null,
 	maxspeed int not null,
 	description varchar(512) not null,
@@ -41,8 +41,8 @@ create table ride
 
 create table ridezone
 	(
-	rideid varchar(3) not null,
-	parkid varchar(3) not null,
+	rideid int not null,
+	parkid int not null,
 	zonename varchar(128) not null,
 	primary key (rideid),
 	foreign key (rideid) references ride (id),
@@ -51,7 +51,7 @@ create table ridezone
 
 create table attraction
 	(
-	id varchar(3) not null, 
+	id int IDENTITY(1, 1) not null, 
 	name varchar(128) not null, 
 	description varchar (128) not null, 
 	primary key (id),
@@ -68,7 +68,7 @@ create table rating
 -- This table stores the various possible ride ratings
 create table riderating
 	(
-	rideid varchar(3) not null,
+	rideid int not null,
 	rating varchar(16) check (rating in ('baby', 'intermediate', 'concussion')),
 	primary key (rideid),
 	foreign key (rideid) references ride (id),
@@ -78,7 +78,7 @@ create table riderating
 -- This table relates an attraction to its corresponding zonename
 create table attractionzone
 	(
-		attractionid varchar(3) not null,
+		attractionid int not null,
 		zonename varchar(128),
 		primary key (attractionid),
 		foreign key (attractionid) references attraction (id)
