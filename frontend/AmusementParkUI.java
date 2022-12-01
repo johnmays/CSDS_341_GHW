@@ -41,7 +41,6 @@ public class AmusementParkUI {
 
         // Print Menu Options
         System.out.println("Choose from one of the following, then press enter.");
-        
         System.out.println("\t1 - Create Park");
         System.out.println("\t2 - Update Park");
 
@@ -104,7 +103,7 @@ public class AmusementParkUI {
         System.out.println("\t2 - Temporarily Closed");
         System.out.println("\t3 - Permanently Closed");
         statusCode = scanner.nextLine();
-        switch(statusCode) {
+        switch (statusCode) {
             case "1":
                 status = "open";
                 break;
@@ -123,16 +122,38 @@ public class AmusementParkUI {
 
     public void createPark(Scanner scanner) {
         String name;
-        String description;
         String status;
+        String description;
 
         System.out.println("Create Park:");
         System.out.println("Type the park name, then press enter.");
         name = scanner.nextLine();
+        status = getParkStatus(scanner);
         System.out.println("Type the description of the park, then press enter.");
         description = scanner.nextLine();
-        status = getParkStatus(scanner);
-        
+
+        System.out.printf("Name: %s\nStatus: %s\nDescription: %s\n", name, status, description);
+
+        // CALL PROCEDURE
+        // TODO: this is likely to change, double check this later
+        String callProcedure = "{call dbo.insertPark(?,?,?,?)}";
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                CallableStatement procedure = connection.prepareCall(callProcedure);) {
+
+            // set the name, description, and status
+            procedure.setString(1, name);
+            procedure.setString(2, description);
+            procedure.setString(3, status);
+            // Output the ID of the created park
+            procedure.registerOutParameter(4, java.sql.Types.INTEGER);
+            procedure.execute();
+
+            System.out.println("Successfully generated park with ID = " + procedure.getInt("id"));
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updatePark(Scanner scanner) {
