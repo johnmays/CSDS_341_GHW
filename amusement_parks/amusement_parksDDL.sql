@@ -60,7 +60,7 @@ create table attraction
 	primary key (id),
 	foreign key (parkid) references park (id)
 	)
-	-- This table stores the various possible ride ratings
+
 create table rating
 	(
 		rating varchar(16) check (rating in('baby', 'intermediate', 'concussion'))	not null,
@@ -68,7 +68,8 @@ create table rating
 		agelimit int check (agelimit > 0)	not null,
 		primary key (rating)
 	)
-
+	
+-- This table stores the various possible ride ratings
 create table riderating
 	(
 	rideid varchar(3) not null,
