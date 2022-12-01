@@ -66,7 +66,26 @@ create table riderating
 	rating in ('baby', 'intermediate', 'concussion')
 	primary key (rideid)
 	foreign key (rideid) references ride (id)
-	) 
+	foreign key (rating) references rating (rating)
+	)
+
+-- This table stores the various possible ride ratings
+create table rating
+	(
+		rating varchar(16) check (rating in('baby', 'intermediate', 'concussion'))	not null
+		description varchar(512)	not null
+		agelimit int check (agelimit > 0)	not null
+		primary key (rating)
+	)
+
+-- This table relates an attraction to its corresponding zonename
+create table attractionzone
+	(
+		attractionid varchar(3) not null
+		zonename varchar(128)
+		primary key (attractionid)
+		foreign key (attractionid) references attraction (id)
+	)
 
 
 -- Misc. Tables
