@@ -26,9 +26,6 @@ insert into ride values('002', 'Millenium Churn', 93, "The Millenium Churn is a 
 insert into ridezone values('001', 'Cheddar Palace');
 insert into ridezone values('002', 'Curd Science Lab');
 
--- MPA Film Ratings:
--- example: insert into rating values ('G', 'General Audiences');
-
 -- Ratings
 insert into rating values('baby', 'Slow and safe, suitable for young children', 4);
 insert into rating values('intermediate', 'Fast, with quick turns, but no loops or extreme heights. Suitable for older children.', 10);
