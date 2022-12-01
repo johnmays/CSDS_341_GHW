@@ -14,7 +14,7 @@ create table park
 
 create table location
 	(
-	parkid		varchar(3) 		not null,
+	parkid		varchar(3) 	not null,
 	city		varchar(128) 	not null,
 	state		varchar(128)	not null,
 	country		varchar(128)	not null,
@@ -24,7 +24,7 @@ create table location
 
 create table zone
 	(
-	parkid		varchar(3) 		not null,
+	parkid		varchar(3) 	not null,
 	zonename	varchar(128)	not null,
 	primary key (parkid, zonename),
 	foreign key (parkid) references park (id)
@@ -36,9 +36,7 @@ create table ride
 	name varchar(128) not null,
 	maxspeed int not null,
 	description varchar(512) not null,
-	parkid varchar(3) not null,
 	primary key (id),
-	foreign key (parkid) references park (id)
 	)
 
 create table ridezone
@@ -54,11 +52,9 @@ create table ridezone
 create table attraction
 	(
 	id varchar(3) not null, 
-	parkid varchar(3) not null,
 	name varchar(128) not null, 
 	description varchar (128) not null, 
 	primary key (id),
-	foreign key (parkid) references park (id)
 	)
 
 create table rating
@@ -78,8 +74,6 @@ create table riderating
 	foreign key (rideid) references ride (id),
 	foreign key (rating) references rating (rating)
 	)
-
-
 
 -- This table relates an attraction to its corresponding zonename
 create table attractionzone
