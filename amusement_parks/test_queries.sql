@@ -4,8 +4,7 @@ select * from park where park.name='CheeseLand'
 
 
 -- (2) slightly advances queries
-    -- find all parks in the U.S.
-select park.name from park, location where country = 'USA' or country = 'U.S.A.' or country == 'United States'
+    
 
     -- look for duplicate zones
 select zonename, count(zonename) from zone group by zonename having count(zonename) > 1
