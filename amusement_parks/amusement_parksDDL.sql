@@ -1,6 +1,12 @@
-drop table park cascade
-drop table location cascade
-drop table zone cascade
+drop table ridezone
+drop table riderating
+drop table attractionzone
+drop table attraction
+drop table location
+drop table zone
+drop table ride
+drop table rating
+drop table park
 
 -- Main Tables:
 create table park
@@ -45,8 +51,8 @@ create table ridezone
 	parkid int not null,
 	zonename varchar(128) not null,
 	primary key (rideid),
-	foreign key (rideid) references ride (id),
-	foreign key (zonename) references zone (zonename)
+	foreign key (rideid) references ride (rideid),
+	foreign key (parkid, zonename) references zone (parkid, zonename)
 	)
 
 create table attraction
@@ -71,7 +77,7 @@ create table riderating
 	rideid int not null,
 	rating varchar(16) check (rating in ('baby', 'intermediate', 'concussion')),
 	primary key (rideid),
-	foreign key (rideid) references ride (id),
+	foreign key (rideid) references ride (rideid),
 	foreign key (rating) references rating (rating)
 	)
 
