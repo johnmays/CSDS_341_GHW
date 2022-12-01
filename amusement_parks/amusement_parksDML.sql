@@ -19,6 +19,18 @@ CREATE PROCEDURE updatePark (@id varchar(3),
 -- Create ride - Phineas
 
 -- Update ride - Jack
+CREATE PROCEDURE updateRide (@rideid varchar(3),
+                             @name varchar(128),
+	                           @maxspeed int,
+	                           @description varchar(512))
+  AS
+    BEGIN
+      UPDATE ride
+      SET name = IsNull(@name, name),
+          maxspeed = IsNull(@maxspeed, maxspeed),
+          description = IsNull(@description, description),
+      WHERE rideid = @rideid
+    END
 
 -- Delete ride - Phineas
 
