@@ -1,6 +1,6 @@
 --delete from statements
 delete from park;
-delete from locaiton;
+delete from location;
 delete from zone;
 
 -- Parks:
