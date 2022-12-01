@@ -61,28 +61,28 @@ public class AmusementParkUI {
         // Activate the correct use case
         switch (useCaseCode) {
             case "1":
-                createPark();
+                createPark(scanner);
                 break;
             case "2":
-                updatePark();
+                updatePark(scanner);
                 break;
             case "3":
-                createZone();
+                createZone(scanner);
                 break;
             case "4":
-                createRide();
+                createRide(scanner);
                 break;
             case "5":
-                updateRide();
+                updateRide(scanner);
                 break;
             case "6":
-                deleteRide();
+                deleteRide(scanner);
                 break;
             case "7":
-                selectTopSpeed();
+                selectTopSpeed(scanner);
                 break;
             case "8":
-                selectZone();
+                selectZone(scanner);
                 break;
             case "q":
                 scanner.close();
@@ -94,35 +94,72 @@ public class AmusementParkUI {
         scanner.close();
     }
 
-    public void createPark() {
+    // Helper for createpark
+    private String getParkStatus(Scanner scanner) {
+        String statusCode;
+        String status;
+
+        System.out.println("Choose from one of the following statuses, then press enter.");
+        System.out.println("\t1 - Open");
+        System.out.println("\t2 - Temporarily Closed");
+        System.out.println("\t3 - Permanently Closed");
+        statusCode = scanner.nextLine();
+        switch(statusCode) {
+            case "1":
+                status = "open";
+                break;
+            case "2":
+                status = "temporarily closed";
+                break;
+            case "3":
+                status = "permanently closed";
+                break;
+            default:
+                System.out.println("Invalid input");
+                status = getParkStatus(scanner);
+        }
+        return status;
+    }
+
+    public void createPark(Scanner scanner) {
+        String name;
+        String description;
+        String status;
+
+        System.out.println("Create Park:");
+        System.out.println("Type the park name, then press enter.");
+        name = scanner.nextLine();
+        System.out.println("Type the description of the park, then press enter.");
+        description = scanner.nextLine();
+        status = getParkStatus(scanner);
+        
+    }
+
+    public void updatePark(Scanner scanner) {
 
     }
 
-    public void updatePark() {
+    public void createZone(Scanner scanner) {
 
     }
 
-    public void createZone() {
+    public void createRide(Scanner scanner) {
 
     }
 
-    public void createRide() {
+    public void updateRide(Scanner scanner) {
 
     }
 
-    public void updateRide() {
+    public void deleteRide(Scanner scanner) {
 
     }
 
-    public void deleteRide() {
+    public void selectTopSpeed(Scanner scanner) {
 
     }
 
-    public void selectTopSpeed() {
-
-    }
-
-    public void selectZone() {
+    public void selectZone(Scanner scanner) {
 
     }
 
