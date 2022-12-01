@@ -3,7 +3,6 @@ CREATE PROCEDURE findAllParksInCountry @Country varchar(128)
 AS
 SELECT park.name FROM park, location WHERE country = @Country
 GO;
->>>>>>> Stashed changes
 
 -- find all rides in a specific park
 CREATE PROCEDURE findAllRidesInPark @Park varchar(128)
