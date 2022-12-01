@@ -187,15 +187,12 @@ public class AmusementParkUI {
 
         // CALL PROCEDURE
         // TODO: this is likely to change, double check this later
-        String callProcedure = "{call dbo.insertZone(?,?,?)}";
+        String callProcedure = "{call dbo.createZone(?,?,?)}";
         try (Connection connection = DriverManager.getConnection(connectionUrl);
                 CallableStatement procedure = connection.prepareCall(callProcedure);) {
 
-            // set the name, description, and status
             procedure.setInt(1, parkId);
             procedure.setString(2, name);
-            // Output the ID of the created park
-            procedure.registerOutParameter(1, java.sql.Types.INTEGER);  // i dont really know what this does
             procedure.execute();
 
             System.out.println("Successfully generated zone with primary key (" + procedure.getInt(1) + ", " + procedure.getString(2) + ")");
