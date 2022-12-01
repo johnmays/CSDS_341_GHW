@@ -1,6 +1,6 @@
 --delete from statements
 delete from park;
-delete from locaiton;
+delete from location;
 delete from zone;
 delete from rating;
 delete from attractionzone;
@@ -25,9 +25,6 @@ insert into ride values('002', 'Millenium Churn', 93, "The Millenium Churn is a 
 -- Ride Zones:
 insert into ridezone values('001', 'Cheddar Palace');
 insert into ridezone values('002', 'Curd Science Lab');
-
--- MPA Film Ratings:
--- example: insert into rating values ('G', 'General Audiences');
 
 -- Ratings
 insert into rating values('baby', 'Slow and safe, suitable for young children', 4);
