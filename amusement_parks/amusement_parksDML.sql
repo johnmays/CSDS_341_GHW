@@ -1,12 +1,36 @@
 -- Create Park - Tyler
 
 -- Update Park - Jack
+CREATE PROCEDURE updatePark (@id varchar(3),
+                             @name varchar(128),
+                             @description varchar(512),
+                             @status varchar(32))
+  AS
+    BEGIN
+      UPDATE park
+      SET name = IsNull(@name, name),
+          description = IsNull(@description, description),
+          status = IsNull(@status, status),
+      WHERE id = @id
+    END
 
 -- Create zone - Tyler
 
 -- Create ride - Phineas
 
 -- Update ride - Jack
+CREATE PROCEDURE updateRide (@rideid varchar(3),
+                             @name varchar(128),
+	                           @maxspeed int,
+	                           @description varchar(512))
+  AS
+    BEGIN
+      UPDATE ride
+      SET name = IsNull(@name, name),
+          maxspeed = IsNull(@maxspeed, maxspeed),
+          description = IsNull(@description, description),
+      WHERE rideid = @rideid
+    END
 
 -- Delete ride - Phineas
 
