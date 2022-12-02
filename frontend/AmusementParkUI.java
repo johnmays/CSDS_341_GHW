@@ -135,7 +135,6 @@ public class AmusementParkUI {
         System.out.printf("Name: %s\nStatus: %s\nDescription: %s\n", name, status, description);
 
         // CALL PROCEDURE
-        // TODO: this is likely to change, double check this later
         String callProcedure = "{call dbo.createPark(?,?,?,?)}";
         try (Connection connection = DriverManager.getConnection(connectionUrl);
                 CallableStatement procedure = connection.prepareCall(callProcedure);) {
@@ -314,45 +313,6 @@ public class AmusementParkUI {
 
     public void selectZone(Scanner scanner) {
 
-    }
-
-    private void EXAMPLE_DELETE_THIS_LATER() {
-        Scanner scanner = new Scanner(System.in);
-        String inpDeptName, inpBuilding;
-        float inpBudget;
-
-        // Coalesce variables
-        System.out.println("Enter dept_name then enter. ");
-        inpDeptName = scanner.nextLine();
-        System.out.println("Enter building then enter.");
-        inpBuilding = scanner.nextLine();
-        System.out.println("Enter budget as numeric (12,2) then enter. ");
-        inpBudget = scanner.nextFloat();
-        scanner.close();
-
-        System.out.println("dept_name: " + inpDeptName + "  building: "
-                + inpBuilding + "   budget: " + inpBudget);
-
-        // 4 ? because 4 parameters to stored proc needed. Index for paramters start at
-        // 1.
-        String callStoredProc = "{call dbo.insertDeptID(?,?,?,?)}";
-
-        try (Connection connection = DriverManager.getConnection(connectionUrl);
-                CallableStatement prepsStoredProc = connection.prepareCall(callStoredProc);) {
-            // 4 parameters to stored proc start with a parameter index of 1
-            prepsStoredProc.setString(1, inpDeptName);
-            prepsStoredProc.setString(2, inpBuilding);
-            prepsStoredProc.setFloat(3, inpBudget);
-            // the 4th parameter is an output parameter
-            prepsStoredProc.registerOutParameter(4, java.sql.Types.INTEGER);
-            prepsStoredProc.execute();
-
-            System.out.println("Generated Identity: " + prepsStoredProc.getInt(4));
-        }
-        // Handle any errors that may have occurred.
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     // Connect to your database.
