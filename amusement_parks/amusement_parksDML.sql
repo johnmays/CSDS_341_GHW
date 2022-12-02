@@ -62,7 +62,6 @@ CREATE PROCEDURE updateRide (@rideid int,
     END
 
 -- Delete ride - Phineas
--- I HAVE NOT YET TESTED THIS
 CREATE PROCEDURE deleteRide (@id int)
   AS
     BEGIN
