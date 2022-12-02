@@ -6,7 +6,7 @@ CREATE PROCEDURE createPark (@id int output,
   AS
     BEGIN
       INSERT  into park(name, description, status) values (@name, @description, @status);
-	  SELECT @id = SCOPE_IDENTITY();
+    SELECT @id = SCOPE_IDENTITY();
     END
 
 -- Update Park - Jack
@@ -30,7 +30,7 @@ CREATE PROCEDURE createZone (@parkid int,
     BEGIN
       INSERT  into zone(parkid, zonename) values (@parkid, @zonename);
     END
-    
+
 -- Create ride - Phineas
 CREATE PROCEDURE createRide (@id int output,
                              @name varchar(128),
