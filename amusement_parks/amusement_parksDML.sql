@@ -62,6 +62,15 @@ CREATE PROCEDURE updateRide (@rideid varchar(3),
     END
 
 -- Delete ride - Phineas
+-- I HAVE NOT YET TESTED THIS
+CREATE PROCEDURE deleteRide (@id int)
+  AS
+    BEGIN
+      DELETE from ride, ridezone, riderating
+      WHERE ride.id = @id
+      AND ridezone.rideid = @id
+      AND riderating.rideid = @id
+    END
 
 -- Select top speed ride at park - John
 
