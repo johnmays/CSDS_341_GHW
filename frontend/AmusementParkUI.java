@@ -353,12 +353,63 @@ public class AmusementParkUI {
 
     }
 
+    // TODO: this is unverified
     public void selectTopSpeed(Scanner scanner) {
+        System.out.println("Top Speed Ride at Park:");
+        int parkid = scanInt(scanner, "Type the park id of the park you would like to search in, then press enter.");
 
+        String callProcedure = "{call dbo.selectFastestRide(?,?,?,?)}";
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                CallableStatement procedure = connection.prepareCall(callProcedure);) {
+            procedure.setInt(1, parkid);
+            procedure.registerOutParameter(2, java.sql.Types.INTEGER);  // the id of the ride
+            procedure.registerOutParameter(3, java.sql.Types.VARCHAR);  // the name of the ride
+            procedure.registerOutParameter(4, java.sql.Types.INTEGER);  // the speed of the ride
+            // whatever other parameters
+            procedure.execute();
+
+            int id = procedure.getInt(2);
+            String name = procedure.getString(3);
+            int speed = procedure.getInt(4);
+
+            System.out.printf("\tFastest ride =\n\t\tRideID:\t%d\n\t\tName:\t%s\n\t\tSpeed:\t%d\n", id, name, speed);
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    // TODO: this is unverified
     public void selectZone(Scanner scanner) {
+        int parkId;
+        String rating;
 
+        System.out.println("Zone at Park with most rides of a rating:");
+        parkId = scanInt(scanner, "Type the park id of the park you would like to search in, then press enter.");
+        rating = getRating(scanner, "Select the rating type you would like to search for, then press enter.");
+
+        String callProcedure = "{call dbo.selectZoneWithRating(?,?,?,?,?)}";
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                CallableStatement procedure = connection.prepareCall(callProcedure);) {
+            procedure.setInt(1, parkId);
+            procedure.setString(2, rating);
+            procedure.registerOutParameter(2, java.sql.Types.INTEGER);  // the id of the zone
+            procedure.registerOutParameter(3, java.sql.Types.VARCHAR);  // the name of the zone
+            procedure.registerOutParameter(4, java.sql.Types.INTEGER);  // the number of rides with that rating
+            // whatever other parameters
+            procedure.execute();
+
+            int id = procedure.getInt(2);
+            String name = procedure.getString(3);
+            int speed = procedure.getInt(4);
+
+            System.out.printf("\tZone =\n\t\tID:\t%d\n\t\tName:\t%s\n\t\tCount:\t%d\n", id, name, speed);
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     // Connect to your database.
