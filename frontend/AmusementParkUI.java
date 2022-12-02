@@ -186,7 +186,7 @@ public class AmusementParkUI {
 
         // CALL PROCEDURE
         // TODO: this is likely to change, double check this later
-        String callProcedure = "{call dbo.createZone(?,?,?)}";
+        String callProcedure = "{call dbo.createZone(?,?)}";
         try (Connection connection = DriverManager.getConnection(connectionUrl);
                 CallableStatement procedure = connection.prepareCall(callProcedure);) {
 
@@ -194,7 +194,7 @@ public class AmusementParkUI {
             procedure.setString(2, name);
             procedure.execute();
 
-            System.out.println("Successfully generated zone with primary key (" + procedure.getInt(1) + ", " + procedure.getString(2) + ")");
+            System.out.println("Successfully generated zone with primary key (" + parkId + ", " + name + ")");
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {

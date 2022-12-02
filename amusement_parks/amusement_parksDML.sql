@@ -24,7 +24,7 @@ CREATE PROCEDURE updatePark (@id varchar(3),
     END
 
 -- Create zone - Tyler
-CREATE PROCEDURE createZone (@parkid varchar(3),
+CREATE PROCEDURE createZone (@parkid int,
                              @zonename varchar(128))
   AS
     BEGIN
