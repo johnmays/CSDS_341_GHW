@@ -48,7 +48,7 @@ CREATE PROCEDURE createRide (@id int output,
     END
 
 -- Update ride - Jack
-CREATE PROCEDURE updateRide (@rideid varchar(3),
+CREATE PROCEDURE updateRide (@rideid int,
                              @name varchar(128),
 	                           @maxspeed int,
 	                           @description varchar(512))
