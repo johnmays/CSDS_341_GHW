@@ -53,7 +53,7 @@ public class AmusementParkUI {
         System.out.println("\t7 - Select top speed ride at park");
         System.out.println("\t8 - Select zone at a park with most baby rides");
 
-        System.out.println("\tq - Quit");
+        System.out.println("\tQ - Quit");
 
         useCaseCode = scanner.nextLine().toLowerCase();
 
@@ -229,11 +229,75 @@ public class AmusementParkUI {
         catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
-    public void createRide(Scanner scanner) {
+        // Helper for createpark
+        private String getRating(Scanner scanner, String message) {
+            String ratingCode;
+            String rating;
+    
+            System.out.println(message);
+            System.out.println("\t1 - Baby");
+            System.out.println("\t2 - Intermediate");
+            System.out.println("\t3 - Concussion");
+            ratingCode = scanner.nextLine();
+            switch (ratingCode) {
+                case "1":
+                    rating = "baby";
+                    break;
+                case "2":
+                    rating = "intermediate";
+                    break;
+                case "3":
+                    rating = "concussion";
+                    break;
+                default:
+                    System.out.println("Invalid input");
+                    rating = getRating(scanner, message);
+            }
+            return rating;
+        }
 
+    public void createRide(Scanner scanner) {
+        String name;
+        int maxspeed;
+        String description;
+        int parkId;
+        String zonename;
+        String rating;
+
+        System.out.println("Create Ride:");
+        System.out.println("Type the ride name then press enter.");
+        name = scanner.nextLine();
+        maxspeed = scanInt(scanner, "Type the integer max speed, then press enter.");
+        System.out.println("Type the ride description, then press enter");
+        description = scanner.nextLine();
+        rating = getRating(scanner, "Select the ride rating from one of the following, then press enter.");
+        parkId = scanInt(scanner, "Type the Park's ID, then press enter.");
+        System.out.println("Type the zone name where the ride is located, then press enter.");
+        zonename = scanner.nextLine();
+        
+        System.out.printf("Name: %s\nMax Speed: %d\nDescription: %s\nRating: %s\nPark ID: %d\nZone Name: %s\n", name, maxspeed, description, rating, parkId, zonename);
+
+        // CALL PROCEDURE
+        String callProcedure = "{call dbo.createRide(?,?,?,?,?,?,?)}";
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                CallableStatement procedure = connection.prepareCall(callProcedure);) {
+            procedure.setString(2, name);
+            procedure.setInt(3, maxspeed);
+            procedure.setString(4, description);
+            procedure.setInt(5, parkId);
+            procedure.setString(6, zonename);
+            procedure.setString(7, rating);
+            procedure.registerOutParameter(1, java.sql.Types.INTEGER);
+            procedure.execute();
+
+            System.out.println("Successfully generated ride with ID = " + procedure.getInt(1));
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateRide(Scanner scanner) {

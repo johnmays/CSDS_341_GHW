@@ -42,9 +42,9 @@ CREATE PROCEDURE createRide (@id int output,
   AS
     BEGIN
       INSERT into ride(name, maxspeed, description) values (@name, @maxspeed, @description);
+      SELECT @id = SCOPE_IDENTITY();
       INSERT into ridezone(rideid, parkid, zonename) values (@id, @parkid, @zonename);
-      INSERT into riderating(rideid, rating) values (@id, @rating)
-	  SELECT @id = SCOPE_IDENTITY();
+      INSERT into riderating(rideid, rating) values (@id, @rating);
     END
 
 -- Update ride - Jack
