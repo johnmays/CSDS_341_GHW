@@ -196,7 +196,7 @@ public class AmusementParkUI {
         value = scanner.nextLine();
         try {
             return Integer.valueOf(value);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Invalid input, integer required.");
             return scanInt(scanner, message);
         }
@@ -230,32 +230,32 @@ public class AmusementParkUI {
         }
     }
 
-        // Helper for createpark
-        private String getRating(Scanner scanner, String message) {
-            String ratingCode;
-            String rating;
-    
-            System.out.println(message);
-            System.out.println("\t1 - Baby");
-            System.out.println("\t2 - Intermediate");
-            System.out.println("\t3 - Concussion");
-            ratingCode = scanner.nextLine();
-            switch (ratingCode) {
-                case "1":
-                    rating = "baby";
-                    break;
-                case "2":
-                    rating = "intermediate";
-                    break;
-                case "3":
-                    rating = "concussion";
-                    break;
-                default:
-                    System.out.println("Invalid input");
-                    rating = getRating(scanner, message);
-            }
-            return rating;
+    // Helper for createpark
+    private String getRating(Scanner scanner, String message) {
+        String ratingCode;
+        String rating;
+
+        System.out.println(message);
+        System.out.println("\t1 - Baby");
+        System.out.println("\t2 - Intermediate");
+        System.out.println("\t3 - Concussion");
+        ratingCode = scanner.nextLine();
+        switch (ratingCode) {
+            case "1":
+                rating = "baby";
+                break;
+            case "2":
+                rating = "intermediate";
+                break;
+            case "3":
+                rating = "concussion";
+                break;
+            default:
+                System.out.println("Invalid input");
+                rating = getRating(scanner, message);
         }
+        return rating;
+    }
 
     public void createRide(Scanner scanner) {
         String name;
@@ -275,8 +275,9 @@ public class AmusementParkUI {
         parkId = scanInt(scanner, "Type the Park's ID, then press enter.");
         System.out.println("Type the zone name where the ride is located, then press enter.");
         zonename = scanner.nextLine();
-        
-        System.out.printf("Name: %s\nMax Speed: %d\nDescription: %s\nRating: %s\nPark ID: %d\nZone Name: %s\n", name, maxspeed, description, rating, parkId, zonename);
+
+        System.out.printf("Name: %s\nMax Speed: %d\nDescription: %s\nRating: %s\nPark ID: %d\nZone Name: %s\n", name,
+                maxspeed, description, rating, parkId, zonename);
 
         // CALL PROCEDURE
         String callProcedure = "{call dbo.createRide(?,?,?,?,?,?,?)}";
@@ -304,6 +305,22 @@ public class AmusementParkUI {
     }
 
     public void deleteRide(Scanner scanner) {
+        System.out.println("Delete Ride:");
+        int id = scanInt(scanner, "Type the ID of the ride being deleted, then press enter.");
+
+        // CALL PROCEDURE
+        String callProcedure = "{call dbo.deleteRide(?)}";
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                CallableStatement procedure = connection.prepareCall(callProcedure);) {
+            procedure.setInt(1, id);
+            procedure.execute();
+
+            System.out.println("Successfully deleted ride with ID = " + id);
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
