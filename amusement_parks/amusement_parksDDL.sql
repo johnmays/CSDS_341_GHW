@@ -15,7 +15,8 @@ create table park
 	name		varchar(128) 	not null,
 	description	varchar(512)	not null,
 	status		varchar(32)		not null check (status in ('open', 'permanently closed', 'temporarily closed')),
-	primary key (id)
+	primary key (id),
+	on delete cascade
 	)
 
 create table location
@@ -33,7 +34,8 @@ create table zone
 	parkid		int 			not null,
 	zonename	varchar(128)	not null,
 	primary key (parkid, zonename),
-	foreign key (parkid) references park (id)
+	foreign key (parkid) references park (id),
+	on delete cascade
 	)
 
 create table ride
@@ -43,6 +45,7 @@ create table ride
 	maxspeed int not null,
 	description varchar(512) not null,
 	primary key (rideid),
+	on delete cascade
 	)
 
 create table ridezone
@@ -61,6 +64,7 @@ create table attraction
 	name varchar(128) not null, 
 	description varchar (128) not null, 
 	primary key (id),
+	on delete cascade
 	)
 
 create table rating
