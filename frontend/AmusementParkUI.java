@@ -94,11 +94,11 @@ public class AmusementParkUI {
     }
 
     // Helper for createpark
-    private String getParkStatus(Scanner scanner) {
+    private String getParkStatus(Scanner scanner, String message) {
         String statusCode;
         String status;
 
-        System.out.println("Choose from one of the following statuses, then press enter.");
+        System.out.println(message);
         System.out.println("\t1 - Open");
         System.out.println("\t2 - Temporarily Closed");
         System.out.println("\t3 - Permanently Closed");
@@ -115,7 +115,7 @@ public class AmusementParkUI {
                 break;
             default:
                 System.out.println("Invalid input");
-                status = getParkStatus(scanner);
+                status = getParkStatus(scanner, message);
         }
         return status;
     }
@@ -128,7 +128,7 @@ public class AmusementParkUI {
         System.out.println("Create Park:");
         System.out.println("Type the park name, then press enter.");
         name = scanner.nextLine();
-        status = getParkStatus(scanner);
+        status = getParkStatus(scanner, "Choose from one of the following statuses, then press enter.");
         System.out.println("Type the description of the park, then press enter.");
         description = scanner.nextLine();
 
@@ -157,7 +157,37 @@ public class AmusementParkUI {
     }
 
     public void updatePark(Scanner scanner) {
+        int id;
+        String name;
+        String status;
+        String description;
 
+        System.out.println("Update Park:");
+        id = scanInt(scanner, "Type the integer id of the park you want to update, then press enter.");
+        System.out.println("Type the new park name, then press enter.");
+        name = scanner.nextLine();
+        status = getParkStatus(scanner, "Choose the new status from one of the following statuses, then press enter.");
+        System.out.println("Type the new description of the park, then press enter.");
+        description = scanner.nextLine();
+
+        System.out.printf("ID: %d\nName: %s\nStatus: %s\nDescription: %s\n", id, name, status, description);
+
+        // CALL PROCEDURE
+        String callProcedure = "{call dbo.updatePark(?,?,?,?)}";
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                CallableStatement procedure = connection.prepareCall(callProcedure);) {
+            procedure.setInt(1, id);
+            procedure.setString(2, name);
+            procedure.setString(3, description);
+            procedure.setString(4, status);
+            procedure.execute();
+
+            System.out.println("Successfully updated park with ID = " + id);
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     // Helper to get an integer from input -- tries again if no valid result
@@ -185,7 +215,6 @@ public class AmusementParkUI {
         System.out.printf("Park ID: %d\nName: %s\n", parkId, name);
 
         // CALL PROCEDURE
-        // TODO: this is likely to change, double check this later
         String callProcedure = "{call dbo.createZone(?,?)}";
         try (Connection connection = DriverManager.getConnection(connectionUrl);
                 CallableStatement procedure = connection.prepareCall(callProcedure);) {

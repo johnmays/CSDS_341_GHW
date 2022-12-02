@@ -10,7 +10,7 @@ CREATE PROCEDURE createPark (@id int output,
     END
 
 -- Update Park - Jack
-CREATE PROCEDURE updatePark (@id varchar(3),
+CREATE PROCEDURE updatePark (@id int,
                              @name varchar(128),
                              @description varchar(512),
                              @status varchar(32))
