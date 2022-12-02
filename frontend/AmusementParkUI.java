@@ -301,7 +301,36 @@ public class AmusementParkUI {
     }
 
     public void updateRide(Scanner scanner) {
+        int id;
+        String name;
+        int maxspeed;
+        String description;
 
+        System.out.println("Update Ride:");
+        id = scanInt(scanner, "Type the id of the ride you would like to update, then press enter.");
+        System.out.println("Type the updated ride name, then press enter.");
+        name = scanner.nextLine();
+        maxspeed = scanInt(scanner, "Type the updated max speed integer of the ride, then press enter.");
+        System.out.println("Type the updated description of the ride, then press enter.");
+        description = scanner.nextLine();
+
+        System.out.printf("Name: %s\nMax Speed: %d\nDescription: %s\n", name, maxspeed, description);
+
+        String callProcedure = "{call dbo.updateRide(?,?,?,?)}";
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                CallableStatement procedure = connection.prepareCall(callProcedure);) {
+            procedure.setInt(1, id);
+            procedure.setString(2, name);
+            procedure.setInt(3, maxspeed);
+            procedure.setString(4, description);
+            procedure.execute();
+
+            System.out.println("Successfully updated ride with ID = " + id);
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteRide(Scanner scanner) {
