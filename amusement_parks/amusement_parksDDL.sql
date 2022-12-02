@@ -33,7 +33,7 @@ create table zone
 	parkid		int 			not null,
 	zonename	varchar(128)	not null,
 	primary key (parkid, zonename),
-	foreign key (parkid) references park (id)
+	foreign key (parkid) references park (id)  on delete cascade
 	)
 
 create table ride
@@ -51,8 +51,8 @@ create table ridezone
 	parkid int not null,
 	zonename varchar(128) not null,
 	primary key (rideid),
-	foreign key (rideid) references ride (rideid),
-	foreign key (parkid, zonename) references zone (parkid, zonename)
+	foreign key (rideid) references ride (rideid) on delete cascade,
+	foreign key (parkid, zonename) references zone (parkid, zonename) on delete cascade
 	)
 
 create table attraction
@@ -77,8 +77,8 @@ create table riderating
 	rideid int not null,
 	rating varchar(16) check (rating in ('baby', 'intermediate', 'concussion')),
 	primary key (rideid),
-	foreign key (rideid) references ride (rideid),
-	foreign key (rating) references rating (rating)
+	foreign key (rideid) references ride (rideid) on delete cascade,
+	foreign key (rating) references rating (rating) on delete cascade
 	)
 
 -- This table relates an attraction to its corresponding zonename
@@ -87,5 +87,5 @@ create table attractionzone
 		attractionid int not null,
 		zonename varchar(128),
 		primary key (attractionid),
-		foreign key (attractionid) references attraction (id)
+		foreign key (attractionid) references attraction (id) on delete cascade
 	)
