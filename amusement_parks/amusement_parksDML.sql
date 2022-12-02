@@ -30,7 +30,22 @@ CREATE PROCEDURE createZone (@parkid int,
     BEGIN
       INSERT  into zone(parkid, zonename) values (@parkid, @zonename);
     END
+    
 -- Create ride - Phineas
+CREATE PROCEDURE createRide (@id int output,
+                             @name varchar(128),
+                             @maxspeed int,
+                             @description varchar(512),
+                             @parkid int,
+                             @zonename varchar(128),
+                             @rating varchar(16))
+  AS
+    BEGIN
+      INSERT into ride(name, maxspeed, description) values (@name, @maxspeed, @description);
+      INSERT into ridezone(rideid, parkid, zonename) values (@id, @parkid, @zonename);
+      INSERT into riderating(rideid, rating) values (@id, @rating)
+	  SELECT @id = SCOPE_IDENTITY();
+    END
 
 -- Update ride - Jack
 CREATE PROCEDURE updateRide (@rideid varchar(3),
