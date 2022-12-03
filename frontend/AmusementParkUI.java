@@ -334,7 +334,6 @@ public class AmusementParkUI {
 
     }
 
-    // TODO: this is unverified
     public void selectTopSpeed(Scanner scanner) {
         System.out.println("Top Speed Ride at Park:");
         int parkid = scanInt(scanner, "Type the park id of the park you would like to search in, then press enter.");
@@ -352,7 +351,7 @@ public class AmusementParkUI {
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Failed to execute query!");
         }
     }
 
