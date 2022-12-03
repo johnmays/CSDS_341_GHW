@@ -346,9 +346,7 @@ public class AmusementParkUI {
             procedure.registerOutParameter(2, java.sql.Types.VARCHAR);  // the name of the ride
             procedure.execute();
 
-            // int id = procedure.getInt(2);
             String name = procedure.getString(2);
-            // int speed = procedure.getInt(4);
 
             System.out.printf("\tFastest ride =\n\t\tName:\t%s\n", name);
         }

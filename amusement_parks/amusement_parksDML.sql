@@ -71,12 +71,12 @@ CREATE PROCEDURE deleteRide (@id int)
     END
 
 -- Select top speed ride at park - John
-CREATE PROCEDURE selectFastestRide (@name varchar(128))
+CREATE PROCEDURE selectFastestRide (@id int,
+                                    @name varchar(128) output)
   AS
     BEGIN
-      SELECT ride.name, ride.maxspeed from ride WHERE ride.maxspeed = (
-        SELECT MAX(maxspeed) from ride, ridezone, park WHERE ride.rideid = ridezone.rideid AND ridezone.parkid = park.id AND park.name = @name
-        )
+      SELECT @name = ride.name from ride WHERE ride.maxspeed = (
+        SELECT MAX(maxspeed) from ride, ridezone, park WHERE ride.rideid = ridezone.rideid AND ridezone.parkid = 1)
     END
 
 -- Select zone at a park with most rides of a selected rating - John
