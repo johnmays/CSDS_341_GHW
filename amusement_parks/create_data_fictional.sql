@@ -1,8 +1,12 @@
-delete from park;
+delete from ridezone;
+delete from riderating;
+delete from attractionzone;
+delete from attraction;
 delete from location;
 delete from zone;
+delete from ride;
 delete from rating;
-delete from attractionzone;
+delete from park;
 
 -- Parks:
 insert into park(name, description, status) values ('CheeseLand', 'Cheese-themed park with rides and attractions themed after cheese and the cheesemaking process.  Fresh cheese available everywehre.', 'permanently closed');
