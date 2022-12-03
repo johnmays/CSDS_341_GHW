@@ -394,10 +394,9 @@ public class AmusementParkUI {
                 CallableStatement procedure = connection.prepareCall(callProcedure);) {
             procedure.setInt(1, parkId);
             procedure.setString(2, rating);
-            procedure.registerOutParameter(2, java.sql.Types.INTEGER);  // the id of the zone
             procedure.registerOutParameter(3, java.sql.Types.VARCHAR);  // the name of the zone
             procedure.registerOutParameter(4, java.sql.Types.INTEGER);  // the number of rides with that rating
-            // whatever other parameters
+            // whatever other parameters (it should just be these two -- John)
             procedure.execute();
 
             int id = procedure.getInt(2);

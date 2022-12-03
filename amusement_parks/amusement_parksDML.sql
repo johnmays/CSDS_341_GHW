@@ -71,10 +71,21 @@ CREATE PROCEDURE deleteRide (@id int)
     END
 
 -- Select top speed ride at park - John
+CREATE PROCEDURE selectFastestRide (@name varchar(128))
+  AS
+    BEGIN
+      SELECT ride.name, ride.maxspeed from ride WHERE ride.maxspeed = (
+        SELECT MAX(maxspeed) from ride, ridezone, park WHERE ride.rideid = ridezone.rideid AND ridezone.parkid = park.id AND park.name = @name
+        )
+    END
 
--- Select zone at a park with most baby rides - John
-
-
+-- Select zone at a park with most rides of a selected rating - John
+CREATE PROCEDURE selectZoneWithRating (@parkid int,
+                                       @rating varchar(16))
+  AS
+    BEGIN
+      SELECT zonename, MAX(numrating) from (SELECT COUNT(*) AS numrating, ridezone.zonename as zonename from ride, riderating, ridezone WHERE ride.rideid = riderating.rideid AND ride.rideid = ridezone.rideid AND riderating.rating = @rating and ridezone.parkid = @parkid GROUP BY ridezone.zonename)
+    END
 
 CREATE PROCEDURE Masterinsertupdatedelete (@id            INTEGER,
                                           @first_name    VARCHAR(10),
