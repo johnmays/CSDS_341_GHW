@@ -85,7 +85,9 @@ create table riderating
 create table attractionzone
 	(
 		attractionid int not null,
-		zonename varchar(128),
+		parkid int not null,
+		zonename varchar(128) not null,
 		primary key (attractionid),
-		foreign key (attractionid) references attraction (id) on delete cascade
+		foreign key (attractionid) references attraction (attraction) on delete cascade,
+		foreign key (parkid, zonename) references zone (parkid, zonename) on delete cascade
 	)
