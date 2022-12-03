@@ -380,11 +380,10 @@ public class AmusementParkUI {
             // whatever other parameters (it should just be these two -- John)
             procedure.execute();
 
-            int id = procedure.getInt(2);
             String name = procedure.getString(3);
             int speed = procedure.getInt(4);
 
-            System.out.printf("\tZone =\n\t\tID:\t%d\n\t\tName:\t%s\n\t\tCount:\t%d\n", id, name, speed);
+            System.out.printf("\tZone =\n\t\tName:\t%s\n\t\tCount:\t%d\n", name, speed);
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
