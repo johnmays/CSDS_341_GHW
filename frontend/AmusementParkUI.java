@@ -31,7 +31,7 @@ public class AmusementParkUI {
         System.out.println("\t6 - Delete Ride");
 
         System.out.println("\t7 - Select top speed ride at park");
-        System.out.println("\t8 - Select zone at a park with most baby rides");
+        System.out.println("\t8 - Select zone at a park with the most rides of a rating");
 
         System.out.println("\tQ - Quit");
 
@@ -339,21 +339,18 @@ public class AmusementParkUI {
         System.out.println("Top Speed Ride at Park:");
         int parkid = scanInt(scanner, "Type the park id of the park you would like to search in, then press enter.");
 
-        String callProcedure = "{call dbo.selectFastestRide(?,?,?,?)}";
+        String callProcedure = "{call dbo.selectFastestRide(?,?)}";
         try (Connection connection = DriverManager.getConnection(connectionUrl);
                 CallableStatement procedure = connection.prepareCall(callProcedure);) {
             procedure.setInt(1, parkid);
-            procedure.registerOutParameter(2, java.sql.Types.INTEGER);  // the id of the ride
-            procedure.registerOutParameter(3, java.sql.Types.VARCHAR);  // the name of the ride
-            procedure.registerOutParameter(4, java.sql.Types.INTEGER);  // the speed of the ride
-            // whatever other parameters
+            procedure.registerOutParameter(2, java.sql.Types.VARCHAR);  // the name of the ride
             procedure.execute();
 
-            int id = procedure.getInt(2);
-            String name = procedure.getString(3);
-            int speed = procedure.getInt(4);
+            // int id = procedure.getInt(2);
+            String name = procedure.getString(2);
+            // int speed = procedure.getInt(4);
 
-            System.out.printf("\tFastest ride =\n\t\tRideID:\t%d\n\t\tName:\t%s\n\t\tSpeed:\t%d\n", id, name, speed);
+            System.out.printf("\tFastest ride =\n\t\tName:\t%s\n", name);
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
