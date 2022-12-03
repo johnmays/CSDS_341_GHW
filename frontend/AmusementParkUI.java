@@ -361,7 +361,6 @@ public class AmusementParkUI {
         }
     }
 
-    // TODO: this is unverified
     public void selectZone(Scanner scanner) {
         int parkId;
         String rating;
@@ -370,24 +369,21 @@ public class AmusementParkUI {
         parkId = scanInt(scanner, "Type the park id of the park you would like to search in, then press enter.");
         rating = getRating(scanner, "Select the rating type you would like to search for, then press enter.");
 
-        String callProcedure = "{call dbo.selectZoneWithRating(?,?,?,?,?)}";
+        String callProcedure = "{call dbo.selectZoneWithRating(?,?,?)}";
         try (Connection connection = DriverManager.getConnection(connectionUrl);
                 CallableStatement procedure = connection.prepareCall(callProcedure);) {
             procedure.setInt(1, parkId);
             procedure.setString(2, rating);
-            procedure.registerOutParameter(3, java.sql.Types.VARCHAR);  // the name of the zone
-            procedure.registerOutParameter(4, java.sql.Types.INTEGER);  // the number of rides with that rating
-            // whatever other parameters (it should just be these two -- John)
+            procedure.registerOutParameter(3, java.sql.Types.VARCHAR);  // the name of the zones
             procedure.execute();
 
             String name = procedure.getString(3);
-            int speed = procedure.getInt(4);
 
-            System.out.printf("\tZone =\n\t\tName:\t%s\n\t\tCount:\t%d\n", name, speed);
+            System.out.printf("\tZone =\n\t\tName:\t%s\n", name);
         }
         // Handle any errors that may have occurred.
-        catch (SQLException e) {
-            e.printStackTrace();
+        catch (Exception e) {
+            System.out.println("Failed to Execute Query!");
         }
     }
 

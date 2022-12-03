@@ -81,8 +81,10 @@ CREATE PROCEDURE selectFastestRide (@name varchar(128))
 
 -- Select zone at a park with most rides of a selected rating - John
 CREATE PROCEDURE selectZoneWithRating (@parkid int,
-                                       @rating varchar(16))
+                                       @rating varchar(16),
+                                       @name varchar(128) output
+                                       )
   AS
     BEGIN
-     SELECT a.zonename, MAX(a.numrating) as maximum from (SELECT COUNT(*) AS numrating, ridezone.zonename as zonename from ride, riderating, ridezone WHERE ride.rideid = riderating.rideid AND ride.rideid = ridezone.rideid AND riderating.rating = @rating and ridezone.parkid = @parkid GROUP BY ridezone.zonename) a GROUP BY a.zonename
+     SELECT @name = a.zonename from (SELECT COUNT(*) AS numrating, ridezone.zonename as zonename from ride, riderating, ridezone WHERE ride.rideid = riderating.rideid AND ride.rideid = ridezone.rideid AND riderating.rating = @rating and ridezone.parkid = @parkid GROUP BY ridezone.zonename) a GROUP BY a.zonename
     END
