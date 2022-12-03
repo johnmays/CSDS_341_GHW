@@ -6,26 +6,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-// Create Park
-// Update Park
-//      Create: id, name, description, status = {"open", "permanently closed", "temporarily closed"}
-
-// Create zone
-//      Create: parkid, zonename
-//      
-
-// Create ride
-//      id, name, maxspeed, zone, description
-//      need to add to ridezone as well
-//          rideid, parkid, zonename
-//      need to add to riderating as well
-//          rideid, rating
-// Update ride
-// Delete ride
-
-// Select top speed ride at park
-// Select zone at a park with most baby rides
-
 public class AmusementParkUI {
 
     private final String connectionUrl;
@@ -151,7 +131,7 @@ public class AmusementParkUI {
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Failed to generate park!");
         }
     }
 
@@ -226,7 +206,8 @@ public class AmusementParkUI {
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Failed to create zone!");
+
         }
     }
 
@@ -296,7 +277,7 @@ public class AmusementParkUI {
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Failed to create ride!");
         }
     }
 
@@ -329,7 +310,7 @@ public class AmusementParkUI {
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Failed to update ride!");
         }
     }
 
@@ -348,7 +329,7 @@ public class AmusementParkUI {
         }
         // Handle any errors that may have occurred.
         catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Failed to delete ride!");
         }
 
     }
